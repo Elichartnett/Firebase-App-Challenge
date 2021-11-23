@@ -23,5 +23,3 @@ Uses Firestore to remotely store books that are sorted by genre locally. Books c
 
 ---
 <img src="https://github.com/Elichartnett/Firestore-App-Challenge/blob/main/8.png" alt="1" width="300"/>
-
----
