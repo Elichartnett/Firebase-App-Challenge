@@ -1,4 +1,5 @@
 # Firestore-App-Challenge
+Sample login: username - test@icloud.com, password - test123
 Uses Firestore to remotely store books that are sorted by genre locally. Books can be added, removed, or edited from within the app or on Firebase.
 
 <img src="https://github.com/Elichartnett/Firestore-App-Challenge/blob/main/1.png" alt="1" width="300"/>
