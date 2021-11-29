@@ -12,21 +12,26 @@ import FirebaseFirestore
 
 class BookModel: ObservableObject {
     
+    @Published var loggedIn = false
     @Published var genres = [String]()
     @Published var books = [Book]()
     
     init() {
-        genreListener()
-        bookListener()
+        if loggedIn {
+            genreListener()
+            bookListener()
+        }
+        
     }
     
     // Listener to see if genres collection changes in remote data base
     func genreListener() {
         let db = Firestore.firestore()
+                
+        let collection = db.collection("users").document(Auth.auth().currentUser!.uid).collection("genres")
         
-        let collection = db.collection("genres")
-        
-        collection.document("Other").setData([:])
+        // Make sure there is a default genre to add books to
+        let defaultGenre = collection.document("Other").setData([:], merge: true)
         
         let genreListener = collection.addSnapshotListener { QuerySnapshot, Error in
             if Error != nil {
@@ -52,8 +57,8 @@ class BookModel: ObservableObject {
     func bookListener() {
         let db = Firestore.firestore()
         
-        let collection = db.collection("books")
-        
+        let collection = db.collection("users").document(Auth.auth().currentUser!.uid).collection("books")
+
         let bookListener = collection.addSnapshotListener { QuerySnapshot, Error in
             if Error != nil {
                 print(Error!.localizedDescription)
@@ -108,7 +113,7 @@ class BookModel: ObservableObject {
         let pages = book.pages
         
         let db = Firestore.firestore()
-        let collection = db.collection("books")
+        let collection = db.collection("users").document(Auth.auth().currentUser!.uid).collection("books")
         let addedBook = collection.document()
         addedBook.setData(["id" : addedBook.documentID, "title" : title, "author" : author, "rating" : rating, "status" : status, "genre" : genre, "pages" : pages])
     }
@@ -118,7 +123,7 @@ class BookModel: ObservableObject {
         if !genres.contains(where: { existingGenre in
             existingGenre == genre}) {
             let db = Firestore.firestore()
-            let collection = db.collection("genres")
+            let collection = db.collection("users").document(Auth.auth().currentUser!.uid).collection("genres")
             collection.document(genre).setData([:])
         }
     }

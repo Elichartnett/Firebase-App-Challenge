@@ -12,7 +12,6 @@ struct BookView: View {
     @EnvironmentObject var model: BookModel
     @State var showAddBookView = false
     
-    
     var body: some View {
         
         VStack {

@@ -14,7 +14,6 @@ struct AddBookView: View {
     
     @State var book = Book()
     
-    
     var body: some View {
         VStack {
             VStack {

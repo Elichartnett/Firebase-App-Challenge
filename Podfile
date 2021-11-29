@@ -7,5 +7,6 @@ target 'Module 1 wrap up challenge' do
 
   # Pods for Module 1 wrap up challenge
   pod 'Firebase/Firestore'
+  pod 'Firebase/Auth'
 
 end

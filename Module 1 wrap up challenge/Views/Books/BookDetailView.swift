@@ -15,7 +15,6 @@ struct BookDetailView: View {
     @State var book: Book?
     @State var updatedBook = Book()
     
-    
     var body: some View {
         VStack {
             VStack {
@@ -62,7 +61,7 @@ struct BookDetailView: View {
             
             Button {
                 let db = Firestore.firestore()
-                let collection = db.collection("books")
+                let collection = db.collection("users").document(Auth.auth().currentUser!.uid).collection("books")
                 
                 collection.getDocuments { (QuerySnapshot, Error) in
                     if Error != nil {
@@ -85,8 +84,8 @@ struct BookDetailView: View {
             
             Button {
                 let db = Firestore.firestore()
-                let collection = db.collection("books")
-                
+                let collection = db.collection("users").document(Auth.auth().currentUser!.uid).collection("books")
+
                 collection.getDocuments { QuerySnapshot, Error in
                     if Error != nil {
                         print(Error!.localizedDescription)
